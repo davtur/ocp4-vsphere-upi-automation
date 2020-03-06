@@ -3,8 +3,8 @@ bootstrap:
   ignHttpLocation: http://192.168.0.x:8080/ignition/bootstrap.ign
 set_proxy: false
 disconnected: false
-enable_multus:false
-container_registry: quay.ocp4.lab.gsslab.pek2.redhat.com:443
+enable_multus: false
+container_registry: quay.ocp4.ocp.example.com:443
 ocp_release: ocp4.3.3-x86_64
 templateName : rhcos-4.3.0-x86_64-vmware
 enable_ocs_storage: False
@@ -21,10 +21,10 @@ config:
   storage0mac: 00:50:56:ab:b8:08
   storage1mac: 00:50:56:ab:b8:09
   storage2mac: 00:50:56:ab:b8:10
-  proxy: ""
-  no_proxy: ""
+  proxy: http://proxy.example.com:3128
+  no_proxy: 192.168.0.0/24,.apps.ocp4.ocp.example.com,kubernetes.default.svc
   sshKey: ssh-rsa AAAAB3Nza
-  pullSecret: 
+  pullSecret:  {"auths":{"quay.ocp4.ocp.example.com":{"auth":"SuperSecret"},"quay.ocp4.ocp.example.com:443":{"auth":"SuperSecret"}}}
   CAcert: " |   
   -----BEGIN CERTIFICATE-----
   MIIDyzCCArOgAwIBAgIJANPmLVdLKvgrMA0GCSqGSIb3DQEBCwUAMHwxCzAJBgNV
@@ -50,16 +50,16 @@ config:
   UiZ28o5sJ4VRdJmFWsB6
   -----END CERTIFICATE-----"
 vcenter:
-  ip: 
+  ip: vsphere.example.com
   datastore: datastore1
   defaultdatastore: datastore1
   username: administrator@vsphere.local
-  password: 
+  password: SuperSecret
   datacenter: test
   cluster: vmware-testcluster
   vm_network_1: 'OpenShift'
-  vm_network_2: 'Satotest'
-  vm_network_3: 'VM Network'
+  vm_network_2: 'OpenShift2
+  vm_network_3: 'OpenShift3'
 download:
   oc_client: "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.3.3/openshift-client-linux-4.3.3.tar.gz"
   openshift_install: "https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.3.3/openshift-install-linux-4.3.3.tar.gz"
@@ -73,8 +73,8 @@ htpasswd_admin_users: "admin"
 ldap_name: "my_ldap_provider"
 ldap_pw: "testuser3"
 ldap_bindDN: "uid=testuser3,ou=People,dc=example,dc=com"
-ldap_url: "ldap://helper.ocp4.lab.gsslab.pek2.redhat.com/ou=people,dc=example,dc=com?uid"
+ldap_url: "ldap://helper.ocp4.ocp.example.com/ou=people,dc=example,dc=com?uid"
 ldap_admin_users: "testuser3"
 oc_admin_role: "cluster-admin"
-oc_app_domain: "apps.ocp4.lab.gsslab.pek2.redhat.com"
-oc_api_domain: "api.ocp4.lab.gsslab.pek2.redhat.com"
+oc_app_domain: "apps.ocp4.ocp.example.com"
+oc_api_domain: "api.ocp4.ocp.example.com"
